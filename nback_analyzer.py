@@ -1,6 +1,9 @@
 import pandas as pd
 import os
 
+class NoMatching(Exception):
+    pass
+
 # referenceDir = input('Введите полный путь к папке, в которой находятся логфайлы. Стиль ввода X:/example:\n')
 referenceDir = 'C:/Users/Kirill/.virtualenvs/ML/average_of_nBack/logs'
 os.chdir(referenceDir)
@@ -48,10 +51,10 @@ def responses(log):
                 file_report(r)
                 i = not i
         if i:
-            raise FileNotFoundError
-    except FileNotFoundError:
+            raise NoMatching
+    except NoMatching:
         print("Нет файла статистики ответов для " + log)
-    except Exception as e:
+    except FileNotFoundError as e:
         print(e)
 
 print('Список файлов: ')
