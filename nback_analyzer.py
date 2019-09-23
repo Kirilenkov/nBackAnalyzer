@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-# referenceDir = input('Введите полный путь к папке, в которой находится файл последовательности шкалирования. Стиль ввода X:/example:\n')
+# referenceDir = input('Введите полный путь к папке, в которой находятся логфайлы. Стиль ввода X:/example:\n')
 referenceDir = 'C:/Users/Kirill/.virtualenvs/ML/average_of_nBack/logs'
 os.chdir(referenceDir)
 allFiles = os.listdir(path='.')
@@ -48,11 +48,13 @@ def responses(log):
         for r in responsesLogs:
             if log[1:] in r:
                 file_report(r)
-                i = False
+                i = not i
         if i:
             raise FileNotFoundError
-    except FileNotFoundError as e:
-        print("Нет файла статистики ответов для " + log, e)
+    except FileNotFoundError:
+        print("Нет файла статистики ответов для " + log)
+    except Exception as e:
+        print(e)
 
 log_iterator(print, logNames)
 log_iterator(log_analyzer, logNames, responses)
