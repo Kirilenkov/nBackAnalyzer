@@ -7,8 +7,6 @@ os.chdir(referenceDir)
 allFiles = os.listdir(path='.')
 logNames = list(filter(lambda x : x[0] != '_', allFiles))
 responsesLogs = list(filter(lambda x : x[0] == '_', allFiles))
-print('Список файлов: ')
-
 
 def log_iterator(func, logs, *args):
     for log in logs:
@@ -56,5 +54,6 @@ def responses(log):
     except Exception as e:
         print(e)
 
+print('Список файлов: ')
 log_iterator(print, logNames)
 log_iterator(log_analyzer, logNames, responses)
